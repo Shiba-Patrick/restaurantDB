@@ -44,5 +44,5 @@ http://localhost:3000
 * mongoose:6.7.2
 * dotenv:16.0.3 
 
-## 網站首頁!
-[1668369835246](https://user-images.githubusercontent.com/116487400/201541964-d9f4e2e9-81b4-4f3f-bd70-89c5d18ae73a.jpg)
+## 網站首頁
+![1668369835246](https://user-images.githubusercontent.com/116487400/201541964-d9f4e2e9-81b4-4f3f-bd70-89c5d18ae73a.jpg)

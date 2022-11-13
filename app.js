@@ -51,25 +51,35 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//showPage router setting:運用params去設定動態路由
-//運用find來搜尋路由id及資料id轉換成相同資料型態去比較
+//餐廳詳細資料
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   restaurantList.findById(id)
     .lean()
-    .then(restaurants => res.render('show', { restaurants }))
+    .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 
 })
 
-//search-bar setting:by name or category
+//餐廳搜尋
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurant.category.includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurant_List: restaurants, keyword: keyword })
+  const keyword = req.query.keyword.toLowerCase()
+  restaurantList
+    .find()
+    .lean()
+    .then(restaurants => {
+      const restaurant = restaurants.filter(R =>
+        R.name.toLowerCase().includes(keyword) ||
+        R.category.toLowerCase().includes(keyword)
+      )
+      if (restaurant.length >= 1 || keyword === '') {
+        res.render('index', { restaurants: restaurant, keyword })
+      } else {
+        res.render('no_results')
+      }
+
+    })
+    .catch(error => console.log(error))
 })
 
 //express listening

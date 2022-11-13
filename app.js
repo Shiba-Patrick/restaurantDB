@@ -2,7 +2,8 @@
 const express = require('express')
 const express_hbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const restaurantList = require('./restaurant.json')
+const bodyParser = require("body-parser");
+const restaurantList = require('./models/rest-seed')
 const app = express()
 const port = 3000
 
@@ -10,7 +11,7 @@ const port = 3000
 app.engine('handlebars', express_hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
-app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //setting env 
 if (process.env.NODE_ENV !== 'production') {
@@ -33,7 +34,10 @@ db.once('open', () => {
 
 //router setting:模板關鍵字為{#each:name : 封包資料的物件名稱}
 app.get('/', (req, res) => {
-  res.render('index', { restaurant_List: restaurantList.results })
+  restaurantList.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
 })
 
 //showPage router setting:運用params去設定動態路由

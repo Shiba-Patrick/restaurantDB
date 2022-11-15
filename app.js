@@ -85,21 +85,18 @@ app.get('/search', (req, res) => {
 //餐廳編輯:editPage
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
-  restaurantList
-    .findById(id)
+  restaurantList.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
 
-app.post(('/restaurants/:id/edit', (req, res) => {
+app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
-
-  restaurantList
-    .findByIdAndUpdate(id, req.body)
+  restaurantList.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
-}))
+})
 
 //餐廳刪除:delete
 app.post('/restaurants/:id/delete', (req, res) => {

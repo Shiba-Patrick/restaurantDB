@@ -4,17 +4,17 @@
   <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
     <div class="mb-1">
       <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name" placeholder="Alpha 科技餐廳" name="name" value="{{restaurant.name}}"
+      <input type="text" class="form-control" id="name" placeholder="印度餐廳" name="name" value="{{restaurant.name}}"
         required />
     </div>
     <div class="mb-1">
       <label for="name_en" class="form-label">Name_en<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name_en" placeholder="Alpha Tech Theme Restaurant" name="name_en"
+      <input type="text" class="form-control" id="name_en" placeholder="India Restaurant" name="name_en"
         value="{{restaurant.name_en}}" required />
     </div>
     <div class="mb-1">
       <label for="category" class="form-label">Category<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="category" placeholder="美式" list="categoryOptions" name="category"
+      <input type="text" class="form-control" id="category" placeholder="中式" list="categoryOptions" name="category"
         value="{{restaurant.category}}" required />
       <datalist id="categoryOptions">
         <option>美式</option>
@@ -30,12 +30,12 @@
     </div>
     <div class="mb-1">
       <label for="location" class="form-label">Address<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="location" placeholder="台中市北屯區迷有這條路520號" name="location"
+      <input type="text" class="form-control" id="location" placeholder="台北市信義區信義路123號" name="location"
         value="{{restaurant.location}}" required />
     </div>
     <div class="mb-1">
       <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
-      <input type="tel" class="form-control" id="phone" placeholder="04-23456789" name="phone"
+      <input type="tel" class="form-control" id="phone" placeholder="02-123456789" name="phone"
         value="{{restaurant.phone}}" required />
     </div>
     <div class="mb-1">
@@ -54,7 +54,7 @@
         required>{{restaurant.description}}</textarea>
     </div>
     <div class="text-center mb-5">
-      <button type="submit" class="btn btn-info">新增</button>
+      <button type="submit" class="btn btn-info">修改</button>
       <button type="reset" class="btn btn-outline-danger">重新輸入</button>
       <a href="/">
         <button type="button" class="btn btn-outline-secondary">首頁</button>

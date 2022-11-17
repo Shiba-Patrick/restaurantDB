@@ -37,7 +37,7 @@ router.get('/search', (req, res) => {
       if (restaurant.length >= 1 || keyword === '') {
         res.render('index', { restaurants: restaurant, keyword })
       } else {
-        res.render('no_results')
+        res.render('no_results',{ keyword })
       }
 
     })

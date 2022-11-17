@@ -2,17 +2,20 @@
 const express = require('express')
 const express_hbs = require('express-handlebars')
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override')//load method-override
 const routes = require('./routes')// load routes
 require('./config/mongoose') //load config mongoose
+const restaurantList = require('./models/rest-seed')
 
 const app = express()
 const port = 3000
 
-//setting handlebars engine & static files & body-parse
+//setting handlebars engine & static files & body-parse & method-override
 app.engine('handlebars', express_hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 //use routes
 app.use(routes)
@@ -47,7 +50,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   restaurantList.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -55,7 +58,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 //餐廳刪除:delete
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   restaurantList
     .findByIdAndRemove(id)

@@ -2,10 +2,18 @@ const express = require("express")
 const router = express.Router()
 const restaurantList = require('../../models/rest-seed')
 
-  // 瀏覽全部餐廳
+// 瀏覽全部餐廳
 router.get('/', (req, res) => {
+  const sort = req.query.sort ? req.query.sort : { _id: 'asc' }
+  const sortTable = {
+    'AtoZ': { name: 'asc' },
+    'ZtoA': { name: 'desc' },
+    'category': { category: 'asc' },
+    'location': { location: 'asc' }
+  }
   restaurantList.find()
     .lean()
+    .sort(sortTable[sort])
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.log(error))
 })

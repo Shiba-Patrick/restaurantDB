@@ -1,8 +1,9 @@
 //宣告及取得需要的變數 express/handlebars
 const express = require('express')
 const express_hbs = require('express-handlebars')
-const mongoose = require('mongoose')
 const bodyParser = require("body-parser");
+require('./config/mongoose') //load config mongoose
+
 const restaurantList = require('./models/rest-seed')
 const app = express()
 const port = 3000
@@ -12,25 +13,6 @@ app.engine('handlebars', express_hbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
-
-//setting env 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-
-//Mongoose DataBase setting
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
-
-//connected error:on
-db.on('error', () => {
-  console.log('mongoose error!!!!')
-})
-
-//connected success:once
-db.once('open', () => {
-  console.log('mongo-db connected!!!')
-})
 
 //瀏覽全部餐廳
 app.get('/', (req, res) => {

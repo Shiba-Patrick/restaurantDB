@@ -45,4 +45,6 @@ http://localhost:3000
 * dotenv:16.0.3 
 
 ## 網站首頁
-![1668369835246](https://user-images.githubusercontent.com/116487400/201541964-d9f4e2e9-81b4-4f3f-bd70-89c5d18ae73a.jpg)
+![1668672403578](https://user-images.githubusercontent.com/116487400/202390946-ed60f3df-30fd-43b2-b41d-7ec9b0633676.jpg)
+
+!

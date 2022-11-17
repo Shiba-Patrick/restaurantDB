@@ -4,20 +4,16 @@ const restaurantList = require('../../models/rest-seed')
 
 // 瀏覽全部餐廳
 router.get('/', (req, res) => {
-  const sortWay = req.query.sort
-
-  const sortOption = {
+  const sort = req.query.sort ? req.query.sort : { _id: 'asc' }
+  const sortTable = {
     'AtoZ': { name: 'asc' },
     'ZtoA': { name: 'desc' },
     'category': { category: 'asc' },
     'location': { location: 'asc' }
   }
-
-  const sort = sortWay ? { [sortWay]: true } : {}
-
   restaurantList.find()
     .lean()
-    .sort(sortOption[sortWay])
+    .sort(sortTable[sort])
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.log(error))
 })
@@ -42,6 +38,5 @@ router.get('/search', (req, res) => {
     })
     .catch(error => console.log(error))
 })
-
 
 module.exports = router

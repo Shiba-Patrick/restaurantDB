@@ -2,9 +2,9 @@
 const express = require('express')
 const express_hbs = require('express-handlebars')
 const bodyParser = require("body-parser");
+const routes = require('./routes')// load routes
 require('./config/mongoose') //load config mongoose
 
-const restaurantList = require('./models/rest-seed')
 const app = express()
 const port = 3000
 
@@ -14,13 +14,8 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-//瀏覽全部餐廳
-app.get('/', (req, res) => {
-  restaurantList.find()
-    .lean()
-    .then(restaurants => res.render('index', { restaurants }))
-    .catch(error => console.log(error))
-})
+//use routes
+app.use(routes)
 
 //新增餐廳:NewPage
 app.get('/restaurants/new', (req, res) => {
@@ -41,27 +36,6 @@ app.get('/restaurants/:id', (req, res) => {
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 
-})
-
-//餐廳搜尋:search-bar
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.toLowerCase()
-  restaurantList
-    .find()
-    .lean()
-    .then(restaurants => {
-      const restaurant = restaurants.filter(R =>
-        R.name.toLowerCase().includes(keyword) ||
-        R.category.toLowerCase().includes(keyword)
-      )
-      if (restaurant.length >= 1 || keyword === '') {
-        res.render('index', { restaurants: restaurant, keyword })
-      } else {
-        res.render('no_results')
-      }
-
-    })
-    .catch(error => console.log(error))
 })
 
 //餐廳編輯:editPage

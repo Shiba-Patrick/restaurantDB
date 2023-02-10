@@ -1,5 +1,5 @@
 const db = require('../../config/mongoose')
-const pre_restaurantList = require('../../restaurant.json').results
+const pre_restaurantList = require('./restaurant.json').results
 const restaurantList = require('../rest-seed')
 
 //載入dotenv環境變數做使用:不然連結不上資料庫

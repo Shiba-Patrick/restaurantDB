@@ -4,6 +4,7 @@ const session = require('express-session')
 const express_hbs = require('express-handlebars')
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override')//load method-override
+const flash = require('connect-flash')
 const routes = require('./routes')// load routes
 
 // 載入設定檔，要寫在 express-session 以後
@@ -32,10 +33,14 @@ app.use(methodOverride('_method'))
 // 呼叫 Passport
 usePassport(app)
 
+//呼叫flash套件:並設定成功與警告訊息框
+app.use(flash())
 //設定狀態導覽列
 app.use((req, res ,next)=>{
-  res.locals.isAuthenticated = req.isAuthenticated
+  res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')  
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 

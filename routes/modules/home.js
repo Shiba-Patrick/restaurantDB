@@ -4,6 +4,7 @@ const restaurantList = require('../../models/rest-seed')
 
 // 瀏覽全部餐廳
 router.get('/', (req, res) => {
+  const userId = req.user._id //取得user.id
   const sortWay = req.query.sort //排序方法
 
   //排序結構
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
   //排序比對
   const sort = sortWay ? { [sortWay]: true } : {}
 
-  restaurantList.find()
+  restaurantList.find({ userId })
     .lean()
     .sort(sortOption[sortWay])
     .then(restaurants => res.render('index', { restaurants }))

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-//setting Schema type
+//新增userId關聯式資料庫
 const restaurantSchema = new Schema({
   name: {
     type: String,
@@ -30,6 +30,12 @@ const restaurantSchema = new Schema({
   },
   description: {
     type: String
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    require: true
   }
 })
 

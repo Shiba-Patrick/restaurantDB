@@ -5,6 +5,10 @@ const express_hbs = require('express-handlebars')
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override')//load method-override
 const routes = require('./routes')// load routes
+
+// 載入設定檔，要寫在 express-session 以後
+const usePassport = require('./config/passport')
+
 require('./config/mongoose') //load config mongoose
 
 const app = express()
@@ -24,6 +28,9 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+// 呼叫 Passport
+usePassport(app)
 
 //use routes
 app.use(routes)

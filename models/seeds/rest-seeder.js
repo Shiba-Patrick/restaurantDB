@@ -1,16 +1,59 @@
 const db = require('../../config/mongoose')
 const pre_restaurantList = require('./restaurant.json').results
 const restaurantList = require('../rest-seed')
+const User = require('../user')
+const bcrypt =require('bcryptjs')
 
-//載入dotenv環境變數做使用:不然連結不上資料庫
-require('dotenv').config()
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+const SEED_USERS =[
+ {
+    name: 'user1',
+    email: 'user1@example.com',
+    password: '12345678',
+    restaurantIndex: [0, 1, 2]
+ },
+ {
+   name: 'user2',
+   email: 'user2@example.com',
+   password: '12345678',
+   restaurantIndex: [3, 4, 5]
+ }
+]
 
 //create seed
 db.once('open', () => {
-   restaurantList.insertMany(pre_restaurantList)
+   return Promise.all(
+    SEED_USERS.map(user =>{
+      const { restaurantIndex } = user
+
+      return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(user.password, salt))
+        .then(hash => User.create({
+          name: user.name,
+          email: user.email,
+          password: hash
+        }))
+
+        .then((user) => {
+          const restaurants = restaurantIndex.map(index => {
+            const restaurant = pre_restaurantList[index]
+            restaurant.userId = user._id
+            return restaurant
+          })
+            return restaurantList.create(restaurants)
+        })
+            .catch(err => console.log(err))
+    })
+   )
+   
    .then(()=>{
      console.log('done!!!')
-     db.close
+     process.exit()
    })
    .catch(error => console.log(error))
 })

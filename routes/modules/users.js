@@ -19,10 +19,10 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
-  //新增errors陣列存放各種錯誤，並運用判斷式設定各條件下的提示
+  //新增errors陣列存放各種錯誤，並運用判斷式設定各條件下的提示:其中名字為非必填項目
   const errors = []
-  if (!name || !email || !password || !confirmPassword) {
-    errors.push({ message: '欄位都必須填寫！' })
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: 'Email、密碼與密碼確認都是必填欄位!' })
   }
   if (password !== confirmPassword) {
     errors.push({ message: '密碼與確認密碼不相符！' })

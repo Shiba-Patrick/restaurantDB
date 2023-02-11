@@ -1,12 +1,13 @@
 # 餐廳清單
 
-此專案提供使用者觀看全部餐廳清單，使用者可以搜尋關鍵字查詢餐廳並且查看餐廳詳細資訊
+此專案提供註冊會員使用專屬的餐廳清單，使用者可以新增刪除修改，更能夠搜尋關鍵字查詢餐廳並且查看餐廳詳細資訊
 
 ## 功能說明
 
 * 使用者可以點選餐廳查看其詳細資訊，例如：地址、電話、地圖等等。
 * 使用者可以使用關鍵字搜尋想要的餐廳（店名以及類別）
 * 使用者可以新增/刪除/修改餐廳資訊
+* 使用者可以註冊會員且登入使用餐廳清單，並且提供Facebook授權及登入
 
 ## 安裝方式
 
@@ -22,11 +23,17 @@ cd restaurantList
 ```
 npm install
 ```
-4.使用nodemon來執行app.js
+4.新增.env並根據.env.example資訊來設定環境變數
+```
+5.建立種子資料，如在終端機中顯示done，即表示建立成功
+```
+npm run seed
+```
+6.使用nodemon來執行app.js
 ```
 nodemon app.js
 ```
-5.成功顯示字串:伺服器順利啟動
+7.成功顯示字串:伺服器順利啟動
 ```
 The express is listening on http://localhost:3000
 ```
@@ -43,6 +50,12 @@ http://localhost:3000
 * Express-handlebars:5.3.3
 * mongoose:6.7.2
 * dotenv:16.0.3 
+* express-session 1.17.1
+* bcrypt 2.4.3
+* passport 0.4.1
+* passport-local 1.0.0
+* passport-facebook 3.0.0
+* connect-flash 0.1.1
 
 ## 網站首頁
 ![166867240111578](https://user-images.githubusercontent.com/116487400/202424278-55f7dc91-55d5-40e7-805f-7098b3171ae7.jpg)

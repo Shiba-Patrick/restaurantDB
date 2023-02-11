@@ -42,9 +42,9 @@ The express is listening on http://localhost:3000
 http://localhost:3000
 ```
 開始試用此餐廳清單了喔！
-
+```
 ## 開發工具
-
+```
 * Node.js
 * Express:4.17.1
 * Express-handlebars:5.3.3
@@ -56,7 +56,3 @@ http://localhost:3000
 * passport-local 1.0.0
 * passport-facebook 3.0.0
 * connect-flash 0.1.1
-
-## 網站首頁
-![1676091053944](https://user-images.githubusercontent.com/116487400/218240769-6aeedeac-49a0-4600-9040-adb94fc3d2e4.jpg
-

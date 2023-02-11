@@ -8,9 +8,17 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', passport.authenticate('local', {
+router.post('/login', (req, res, next)=>{
+  const { email, password } = req.body
+  if( !email || !password){
+    req.flash('warning_msg', '請再次確認您的信箱與密碼是否輸入正確')
+    return res.redirect('/users/login')
+  }
+  next()
+}, 
+  passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
 }))
 
 router.get('/register', (req, res) => {

@@ -1,5 +1,6 @@
 const db = require('../../config/mongoose')
 const pre_restaurantList = require('./restaurant.json').results
+const UserSeed = require('./user-seed.json').results //預設種子資料改變儲存型式
 const restaurantList = require('../rest-seed')
 const User = require('../user')
 const bcrypt =require('bcryptjs')
@@ -9,25 +10,10 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-const SEED_USERS =[
- {
-    name: 'user1',
-    email: 'user1@example.com',
-    password: '12345678',
-    restaurantIndex: [0, 1, 2]
- },
- {
-   name: 'user2',
-   email: 'user2@example.com',
-   password: '12345678',
-   restaurantIndex: [3, 4, 5]
- }
-]
-
 //create seed
 db.once('open', () => {
    return Promise.all(
-    SEED_USERS.map(user =>{
+     UserSeed.map(user =>{
       const { restaurantIndex } = user
 
       return bcrypt

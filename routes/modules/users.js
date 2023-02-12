@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next)=>{
   const { email, password } = req.body
   if( !email || !password){
-    req.flash('warning_msg', '請再次確認您的信箱與密碼是否輸入正確')
+    req.flash('warning_msg', '請再次確認您的信箱與密碼是否都有填寫')
     return res.redirect('/users/login')
   }
   next()
